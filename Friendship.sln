@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Friendship", "Friendship\Friendship.csproj", "{946310CD-DD93-4600-A6E5-A8AF8E990C1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendshipTests", "FriendshipTests\FriendshipTests.csproj", "{D3557726-148B-4F61-AE3B-B0446D64D1D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{946310CD-DD93-4600-A6E5-A8AF8E990C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{946310CD-DD93-4600-A6E5-A8AF8E990C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{946310CD-DD93-4600-A6E5-A8AF8E990C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{946310CD-DD93-4600-A6E5-A8AF8E990C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3557726-148B-4F61-AE3B-B0446D64D1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3557726-148B-4F61-AE3B-B0446D64D1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3557726-148B-4F61-AE3B-B0446D64D1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3557726-148B-4F61-AE3B-B0446D64D1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB2B3416-E739-466D-AC3B-4B143F95D204}
+	EndGlobalSection
+EndGlobal
