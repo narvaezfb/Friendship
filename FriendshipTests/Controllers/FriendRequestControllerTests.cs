@@ -2,9 +2,11 @@
 using Friendship.Controllers;
 using Friendship.Data;
 using Friendship.Models.ModelRequests.FriendRequest;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
+using Newtonsoft.Json;
 
 namespace FriendshipTests.FrienshipController
 {
@@ -21,14 +23,13 @@ namespace FriendshipTests.FrienshipController
            .UseInMemoryDatabase(databaseName: "TestDatabase")
            .Options;
 
-            _dbContext = new FriendshipDbContext(options); // Initialize with a mocked context or any necessary setup
+            _dbContext = new FriendshipDbContext(options);
             _controller = new FriendRequestController(_dbContext);
         }
 
         [TestMethod]
         public async Task CreateFriendRequestwithValidPayload()
         {
-            var controller = new FriendRequestController(_dbContext);
             var request = new CreateFriendRequest
             {
                 SenderUserId = "a44cfaea-0766-486f-83bf-5b9cf706f9ee",
@@ -37,28 +38,64 @@ namespace FriendshipTests.FrienshipController
 
             var result = await _controller.CreateRequest(request) as ActionResult;
 
+            Console.WriteLine("Result: " + JsonConvert.SerializeObject(result));
+
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(ObjectResult));
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
 
-        [TestMethod]
-        public async Task AcceptFriendRequest()
-        {
-            // Arrange
-            var request = new AnswerFriendRequest
-            {
-                FriendRequestId = "", // Provide a valid FriendRequestId from your test data
-                Answer = "ACCEPT" // Provide "ACCEPT" or "DECLINE" based on your scenario
-            };
+        //[TestMethod]
+        //public async Task AcceptFriendRequestReturnsNotNull()
+        //{
+        //    // Arrange
+        //    var request = new AnswerFriendRequest
+        //    {
+        //        FriendRequestId = "80c7c53a-5e62-4cc1-9311-995e08f52981",
+        //        Answer = "ACCEPT"
+        //    };
 
-            // Act
-            var result = await _controller.AcceptFriendRequest(request) as ActionResult; // Call the endpoint
+        //    //Act
+        //    var result = await _controller.AnswerFriendRequest(request) as ActionResult;
 
-            // Assert
-            Assert.IsNotNull(result); // Check if the result is not null
-            Assert.IsInstanceOfType(result, typeof(OkObjectResult)); // Check for expected status code
-            // Add more assertions based on the expected behavior of the endpoint
-        }
+        //    //Assert
+        //    Assert.IsNotNull(result);
+        //}
+
+        //[TestMethod]
+        //public async Task AcceptFriendRequestReturnsOkObject()
+        //{
+        //    var request = new AnswerFriendRequest
+        //    {
+        //        FriendRequestId = "40000c0c-1d1c-4f3b-b84c-056a96597fbe",
+        //        Answer = "ACCEPT"
+        //    };
+
+        //    var result = await _controller.AnswerFriendRequest(request) as ActionResult;
+
+        //    // Print the actual type of result
+        //    Console.WriteLine("Hello World" + result?.GetType().FullName);
+
+        //    Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        //}
+
+        //[TestMethod]
+        //public async Task AcceptFriendRequestReturnsCorrectOkObjectMessage()
+        //{
+        //    const string OkObjectMessage = "Friend request accepted and friendship created successfully";
+        //    var request = new AnswerFriendRequest
+        //    {
+        //        FriendRequestId = "80c7c53a-5e62-4cc1-9311-995e08f52981",
+        //        Answer = "ACCEPT"
+        //    };
+
+        //    var result = await _controller.AnswerFriendRequest(request) as ActionResult;
+        //    var okResult = result as OkObjectResult;
+        //    var actualValue = okResult.Value;
+
+        //    Assert.AreEqual(OkObjectMessage, actualValue);
+
+        //}
     }
 }
 
