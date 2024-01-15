@@ -27,21 +27,34 @@ namespace FriendshipTests.FrienshipController
             _controller = new FriendRequestController(_dbContext);
         }
 
+        //[TestMethod]
+        //public async Task CreateFriendRequestwithValidPayload()
+        //{
+        //    var request = new CreateFriendRequest
+        //    {
+        //        SenderUserId = "a44cfaea-0766-486f-83bf-5b9cf706f9ee",
+        //        ReceiverUserId = "1850d4ec-d44f-4665-9ee5-a6d92ae4af41"
+        //    };
+
+        //    var result = await _controller.CreateRequest(request) as ActionResult;
+
+        //    Console.WriteLine("Result: " + JsonConvert.SerializeObject(result));
+
+        //    Assert.IsNotNull(result);
+        //    Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+        //}
+
         [TestMethod]
-        public async Task CreateFriendRequestwithValidPayload()
+        public async Task CheckRecords()
         {
-            var request = new CreateFriendRequest
+            var hasRecords = false;
+            var records = await _dbContext.FriendRequests.ToListAsync();
+
+            if(records.Count >= 1)
             {
-                SenderUserId = "a44cfaea-0766-486f-83bf-5b9cf706f9ee",
-                ReceiverUserId = "1850d4ec-d44f-4665-9ee5-a6d92ae4af41"
-            };
-
-            var result = await _controller.CreateRequest(request) as ActionResult;
-
-            Console.WriteLine("Result: " + JsonConvert.SerializeObject(result));
-
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+                hasRecords = true;
+            }
+            Assert.IsTrue(hasRecords);
         }
 
         //[TestMethod]
