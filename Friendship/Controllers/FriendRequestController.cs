@@ -78,7 +78,7 @@ namespace Friendship.Controllers
         }
 
         [HttpPatch("AnswerFriendRequest")]
-        public async Task<ActionResult> AcceptFriendRequest([FromBody] AnswerFriendRequest model)
+        public async Task<ActionResult> AnswerFriendRequest([FromBody] AnswerFriendRequest model)
         {
             try
             {
@@ -104,12 +104,10 @@ namespace Friendship.Controllers
                             friendRequest.Status = "APPROVED";
                             await _context.SaveChangesAsync();
 
-                            // Create friendship between users
                             UsersFriendship usersFriendship = new(friendRequest.SenderUserId, friendRequest.ReceiverUserId);
                             _context.UsersFriendships.Add(usersFriendship);
                             await _context.SaveChangesAsync();
 
-                            // Commit the transaction if everything succeeds
                             await transaction.CommitAsync();
 
                             return Ok("Friend request accepted and friendship created successfully");
@@ -118,10 +116,12 @@ namespace Friendship.Controllers
                         {
                             friendRequest.Status = "REJECTED";
                             await _context.SaveChangesAsync();
+                            await transaction.CommitAsync();
                             return Ok("Friend request rejected successfully");
                         }
                         else
                         {
+                            await transaction.RollbackAsync();
                             return BadRequest("Invalid Answer");
                         }
                         
