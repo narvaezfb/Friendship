@@ -151,7 +151,7 @@ namespace Friendship.Controllers
             try
             {
                 var existingFriendRequest = await _context.FriendRequests.FirstOrDefaultAsync(fr => (fr.SenderUserId == senderId &&
-                                                                    fr.ReceiverUserId == receiverId));
+                                                                    fr.ReceiverUserId == receiverId && fr.Status == "PENDING"));
                 return existingFriendRequest != null;
             }
             catch(Exception )

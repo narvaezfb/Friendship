@@ -13,6 +13,7 @@ var configuration = new ConfigurationBuilder()
 
 // Register Custom services
 builder.Services.AddHttpClient<ITokenValidationService, TokenValidationService>();
+builder.Services.AddHttpClient<IUserInformationService, UserInformationService>();
 
 // Standar services
 builder.Services.AddDbContext<FriendshipDbContext>(options =>
@@ -31,6 +32,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure CORS
+app.UseCors(options =>
+{
+    options.WithOrigins("http://localhost:3000")
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 
